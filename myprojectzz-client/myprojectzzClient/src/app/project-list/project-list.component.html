@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total tasks</th>
+      <th>Total modules</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr (click)="selectProject(project)" *ngFor="let project of projects" style="cursor: pointer;"  [ngClass]="{active: isSelected(project)}">
+      <td >{{project.title}}</td>
+      <td>{{project.tasks !== undefined? project.tasks.length: 0}}</td>
+      <td>{{project.modules !== undefined? project.modules.length: 0}}</td>
+      <td><span class="glyphicon glyphicon-collapse-up"></span></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
