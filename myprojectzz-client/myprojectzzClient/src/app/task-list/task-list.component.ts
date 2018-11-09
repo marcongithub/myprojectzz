@@ -17,7 +17,7 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.loadProject(params['selectedProjectId']));
+    this.route.params.subscribe(params => this.loadProject(params['projectId']));
   }
 
   private loadProject(param: number) {

@@ -5,13 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { CurrentTaskListComponent } from './current-task-list/current-task-list.component';
+import { ProjectsMainComponent } from './projects-main/projects-main.component';
+import { ProjectToolsBarComponent } from './project-tools-bar/project-tools-bar.component';
+import { TaskToolsBarComponent } from './task-tools-bar/task-tools-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectListComponent,
-    TaskListComponent
+    TaskListComponent,
+    CurrentTaskListComponent,
+    ProjectsMainComponent,
+    ProjectToolsBarComponent,
+    TaskToolsBarComponent
   ],
   imports: [
     BrowserModule,
