@@ -1,6 +1,9 @@
-<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add</button>
-<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Del</button>
-<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-<button type="button" class="btn btn-default"
+<button type="button" class="btn btn-sm"><span class="glyphicon glyphicon-plus"></span> Add</button>
+<button type="button" class="btn btn-sm"><span class="glyphicon glyphicon-trash"></span> Del</button>
+<button type="button" class="btn btn-sm"
+        [ngClass]="{disabled: !isEditProjectEnabled()}" (click)="editProject()">
+  <span class="glyphicon glyphicon-edit"></span> Edit</button>
+<button type="button" class="btn btn-sm"><span class="glyphicon glyphicon-ok"></span> Ok</button>
+<button type="button" class="btn btn-sm"
         [ngClass]="{disabled: !isOpenProjectEnabled()}" (click)="openProject()">
   <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Open</button>

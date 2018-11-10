@@ -9,28 +9,40 @@ import {ProjectTask} from '../../model/project-task';
 })
 export class ProjectListService {
 
+  private projectRepository: Map<string, Project>;
+  private projectSet: Set<Project>;
+
   @Output() projectSelectionEvent: EventEmitter<Project> = new EventEmitter();
 
-  loadProjects(): Project[] {
+  constructor() {
     const projects: Project[] = [];
-    projects.push(new Project('Renovierung', ProjectStatus.OPEN, '1'));
 
-    const projectTodoList: Project = new Project('Todo Liste', ProjectStatus.OPEN, '2');
+    const renovierungsProject: Project = new Project('Renovierung', ProjectStatus.OPEN, '1');
+    const todoListProject: Project = new Project('Todo Liste', ProjectStatus.OPEN, '2');
+    const umzugsProject: Project = new Project('Umzug', ProjectStatus.DONE, '3');
 
-    // const tasksOfTodoList: ProjectTask[] = [];
-    projectTodoList.tasks = [];
-    projectTodoList.tasks.push(new ProjectTask('Mama wg. Ente anrufen', WeekDay.Friday, 44));
-    projects.push(projectTodoList);
-    projects.push(new Project('Umzug', ProjectStatus.DONE, '3'));
-    return projects;
+    const entenTask = new ProjectTask('Mama wg. Ente anrufen', WeekDay.Friday, 44);
+    const dirrTask = new ProjectTask('Dirr anrufen', WeekDay.Friday, 44);
+
+    todoListProject.tasks = [];
+    todoListProject.tasks.push(new ProjectTask('Mama wg. Ente anrufen', WeekDay.Friday, 44));
+    todoListProject.tasks.push(new ProjectTask('Dirr anrufen', WeekDay.Friday, 44));
+
+    // set up repos
+    this.projectSet = new Set<Project>();
+    this.projectSet.add(renovierungsProject).add(todoListProject).add(umzugsProject);
+    this.projectRepository = new Map<string, Project>();
+    this.projectRepository.set(renovierungsProject.id, renovierungsProject);
+    this.projectRepository.set(todoListProject.id, todoListProject).set(umzugsProject.id, umzugsProject);
+
+  }
+
+  loadProjects(): Project[] {
+    return Array.from(this.projectSet);
   }
 
   loadProject(projectId: number): Project {
-    const projectTodoList: Project = new Project('Todo Liste', ProjectStatus.OPEN, '2');
-    projectTodoList.tasks = [];
-    projectTodoList.tasks.push(new ProjectTask('Mama wg. Ente anrufen', WeekDay.Friday, 44));
-    projectTodoList.tasks.push(new ProjectTask('Dirr anrufen', WeekDay.Friday, 44));
-    return projectTodoList;
+    return this.projectRepository.get(projectId.toString());
   }
 
 

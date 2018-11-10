@@ -23,8 +23,18 @@ export class ProjectToolsBarComponent implements OnInit {
     return this.selectedProject !== undefined && this.selectedProject.tasks !== undefined && this.selectedProject.tasks.length > 0;
   }
 
+  isEditProjectEnabled(): boolean {
+    return this.selectedProject !== undefined;
+  }
+
   openProject() {
-    this.router.navigate([{outlets: {primary: this.selectedProject.id, toolbar: this.selectedProject.id}}],
+    // e.g.: 'projects/(primary:2//toolbar:2)(navbar:tasknavbar)'
+    // working
+    this.router.navigateByUrl(`projects/(primary:${this.selectedProject.id}//toolbar:${this.selectedProject.id})(navbar:tasknavbar)`);
+  }
+
+  editProject() {
+    this.router.navigate([{outlets: {primary: `edit/${this.selectedProject.id}`, toolbar: `edit/${this.selectedProject.id}`}}],
       {relativeTo: this.route});
   }
 

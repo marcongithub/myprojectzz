@@ -9,6 +9,13 @@ import { CurrentTaskListComponent } from './current-task-list/current-task-list.
 import { ProjectsMainComponent } from './projects-main/projects-main.component';
 import { ProjectToolsBarComponent } from './project-tools-bar/project-tools-bar.component';
 import { TaskToolsBarComponent } from './task-tools-bar/task-tools-bar.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
+import { EditProjectToolbarComponent } from './edit-project-toolbar/edit-project-toolbar.component';
+import { EditTaskToolbarComponent } from './edit-task-toolbar/edit-task-toolbar.component';
+import { ProjectNavbarComponent } from './project-navbar/project-navbar.component';
+import { HomeNavbarComponent } from './home-navbar/home-navbar.component';
+import { TaskNavbarComponent } from './task-navbar/task-navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +25,14 @@ import { TaskToolsBarComponent } from './task-tools-bar/task-tools-bar.component
     CurrentTaskListComponent,
     ProjectsMainComponent,
     ProjectToolsBarComponent,
-    TaskToolsBarComponent
+    TaskToolsBarComponent,
+    EditProjectComponent,
+    EditTaskComponent,
+    EditProjectToolbarComponent,
+    EditTaskToolbarComponent,
+    ProjectNavbarComponent,
+    HomeNavbarComponent,
+    TaskNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -27,4 +41,4 @@ import { TaskToolsBarComponent } from './task-tools-bar/task-tools-bar.component
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
