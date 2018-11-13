@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProjectListService} from '../service/core/project-list.service';
+import {ProjectTask} from '../model/project-task';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'pz-edit-task',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditTaskComponent implements OnInit {
 
-  constructor() { }
+  private selectedTask: ProjectTask;
 
-  ngOnInit() {
+  constructor(private projectListService: ProjectListService,  private route: ActivatedRoute) {
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(params => this.loadTask(params['taskId']));
+  }
+
+  private loadTask(taskId: string) {
+    this.selectedTask = this.projectListService.loadTask(taskId);
+  }
 }

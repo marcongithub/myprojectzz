@@ -75,12 +75,12 @@ const routes: Routes = [{
       },
       // edit task panel
       {
-        path: ':projectId/edit/:taskId',
+        path: ':projectId/edit-task/:taskId',
         component: EditTaskToolbarComponent,
         outlet: 'toolbar',
       },
       {
-        path: ':projectId/edit/:taskId',
+        path: ':projectId/edit-task/:taskId',
         component: EditTaskComponent
       }
     ]

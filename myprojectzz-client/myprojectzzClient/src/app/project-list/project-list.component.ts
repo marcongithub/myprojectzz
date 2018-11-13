@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectListService} from '../service/core/project-list.service';
 import {Project} from '../model/project';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   templateUrl: './project-list.component.html',
@@ -12,7 +13,7 @@ export class ProjectListComponent implements OnInit {
 
   private selectedProject: Project;
 
-  constructor(private projectListService: ProjectListService) {
+  constructor(private projectListService: ProjectListService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

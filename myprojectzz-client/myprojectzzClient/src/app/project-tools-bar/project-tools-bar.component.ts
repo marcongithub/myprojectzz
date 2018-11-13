@@ -27,7 +27,7 @@ export class ProjectToolsBarComponent implements OnInit {
     return this.selectedProject !== undefined;
   }
 
-  openProject() {
+  openProject(): void {
     // e.g.: 'projects/(primary:2//toolbar:2)(navbar:tasknavbar)' entspricht projects/2(navbar:tasknavbar)
     // working
     this.router.navigateByUrl(`projects/(primary:${this.selectedProject.id}//toolbar:${this.selectedProject.id})(navbar:tasknavbar)`);
@@ -35,7 +35,7 @@ export class ProjectToolsBarComponent implements OnInit {
 
   }
 
-  editProject() {
+  editProject(): void {
     // working
     this.router.navigate([{outlets: {primary: `edit/${this.selectedProject.id}`, toolbar: `edit/${this.selectedProject.id}`}}],
       {relativeTo: this.route});
