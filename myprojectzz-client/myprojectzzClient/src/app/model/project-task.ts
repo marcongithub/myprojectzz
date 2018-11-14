@@ -3,8 +3,18 @@ import {Project} from './project';
 
 export class ProjectTask {
 
+  private _description: string;
+
   constructor(private _title: String, private _weekday: WeekDay,
               private _calendarWeek: number, private _project: Project, private _id: string) {
+  }
+
+  get description(): string {
+    return this._description;
+  }
+
+  set description(value: string) {
+    this._description = value;
   }
 
   get id(): string {

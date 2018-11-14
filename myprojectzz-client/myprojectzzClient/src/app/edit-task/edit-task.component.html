@@ -1,13 +1,22 @@
 <div class="container">
-  <form>
+
+  <form #editTaskForm="ngForm" (ngSubmit)="saveTask()">
     <div class="form-group">
       <label for="taskName">Task name:</label>
-      <input type="text" class="form-control" id="taskName">
+      <input type="text" class="form-control" id="taskName"
+             required
+             minlength="3"
+             maxlength="30"
+             name="title"
+             [(ngModel)]="selectedTask.title">
     </div>
+    <p *ngIf="errorMessages.has('title')">{{errorMessages.get('title')}}</p>
     <div class="form-group">
       <label for="description">Description:</label>
-      <input type="text" class="form-control" id="description">
+      <input type="text" class="form-control" id="description"
+             name="description"
+             [(ngModel)]="selectedTask.description">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" [disabled]="editTaskForm.invalid" class="btn btn-default">Submit</button>
   </form>
 </div>

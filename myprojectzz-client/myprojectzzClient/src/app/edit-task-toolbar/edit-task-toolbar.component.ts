@@ -17,6 +17,7 @@ export class EditTaskToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => this.loadTask(params['taskId']));
+
   }
 
   private loadTask(taskId: string) {
