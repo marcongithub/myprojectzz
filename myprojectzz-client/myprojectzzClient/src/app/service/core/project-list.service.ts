@@ -9,17 +9,19 @@ import {ProjectTask} from '../../model/project-task';
 })
 export class ProjectListService {
 
-  // stub data
-  private projectRepository: Map<string, Project>;
-  private projectSet: Set<Project>;
-  private taskRepository: Map<string, ProjectTask>;
-  // stub data end
 
   @Output() projectSelectionEvent: EventEmitter<Project> = new EventEmitter();
-
   @Output() taskSelectionEvent: EventEmitter<ProjectTask> = new EventEmitter();
+  // stub data
+  private projectRepository: Map<string, Project>;
+  // stub data end
+  private readonly projectSet: Set<Project>;
+  private taskRepository: Map<string, ProjectTask>;
 
   constructor() {
+
+    console.log('In constructor of ProjectListService ...');
+
     const projects: Project[] = [];
 
     const renovierungsProject: Project = new Project('Renovierung', ProjectStatus.OPEN, '1');
@@ -50,7 +52,7 @@ export class ProjectListService {
     return Array.from(this.projectSet);
   }
 
-  loadProject(projectId: number): Project {
+  loadProject(projectId: string): Project {
     return this.projectRepository.get(projectId.toString());
   }
 
@@ -58,5 +60,41 @@ export class ProjectListService {
     return this.taskRepository.get(taskId);
   }
 
+  saveTask(task: ProjectTask): ProjectTask {
+    let taskToReturn: ProjectTask;
+    if (Number(task.id) < 0) {
+      // create, i.e generate taskid
+      console.log('saving new task');
+      const id: string = this.generateTaskId();
+      task.id = id;
+      this.taskRepository.set(task.id, task);
+      taskToReturn = task;
+      // add task to project
+      task.project.tasks.push(task);
+    } else {
+      // update
+      console.log('updating existing task');
+      const taskToUpdate: ProjectTask = this.taskRepository.get(task.id);
+      taskToUpdate.description = task.description;
+      taskToUpdate.title = task.title;
+      taskToReturn = taskToUpdate;
+    }
+
+    return task;
+  }
+
+  private generateTaskId(): string {
+    let max = 0;
+
+    function findMax(task: ProjectTask) {
+      const id: number = Number(task.id);
+      if (id > max) {
+        max = id;
+      }
+    }
+
+    this.taskRepository.forEach(task => findMax(task));
+    return String(max++);
+  }
 
 }

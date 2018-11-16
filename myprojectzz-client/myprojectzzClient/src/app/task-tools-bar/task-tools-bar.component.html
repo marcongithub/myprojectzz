@@ -1,4 +1,4 @@
-<a class="btn btn-default" role="button" ><span class="glyphicon glyphicon-plus"> </span> Add</a>
+<a class="btn btn-default" role="button" (click)="addTask()"><span class="glyphicon glyphicon-plus"> </span> Add</a>
 
 <a class="btn btn-default" role="button" [ngClass]="{disabled: !isEditTaskEnabled()}" (click)="editTask()">
   <span class="glyphicon glyphicon-edit"></span> Edit</a>

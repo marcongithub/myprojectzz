@@ -20,7 +20,7 @@ export class EditProjectToolbarComponent implements OnInit {
     console.log(`Editing ${this.selectedProject.title} ...`);
   }
 
-  private loadProject(param: number) {
+  private loadProject(param: string) {
     console.log('loading project: ' + param);
     this.selectedProject = this.projectListService.loadProject(param);
   }

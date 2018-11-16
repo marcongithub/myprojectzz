@@ -16,7 +16,8 @@ import { EditTaskToolbarComponent } from './edit-task-toolbar/edit-task-toolbar.
 import { ProjectNavbarComponent } from './project-navbar/project-navbar.component';
 import { HomeNavbarComponent } from './home-navbar/home-navbar.component';
 import { TaskNavbarComponent } from './task-navbar/task-navbar.component';
-import {FormsModule} from '@angular/forms';
+import { TaskFormComponent } from './form/task-form/task-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,12 +34,13 @@ import {FormsModule} from '@angular/forms';
     EditTaskToolbarComponent,
     ProjectNavbarComponent,
     HomeNavbarComponent,
-    TaskNavbarComponent
+    TaskNavbarComponent,
+    TaskFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

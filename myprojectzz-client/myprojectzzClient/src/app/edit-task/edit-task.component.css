@@ -13,3 +13,7 @@
 .ng-valid{
   border-right: 4px solid brown;
 }
+
+div.container-fluid{
+  margin-top:1em;
+}

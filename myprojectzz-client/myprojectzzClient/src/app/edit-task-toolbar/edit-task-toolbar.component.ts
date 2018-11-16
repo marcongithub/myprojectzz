@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectListService} from '../service/core/project-list.service';
 import {ProjectTask} from '../model/project-task';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Project} from '../model/project';
 
 @Component({
   selector: 'pz-edit-task-toolbar',
@@ -11,21 +12,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditTaskToolbarComponent implements OnInit {
 
   private selectedTask: ProjectTask;
+  private selectedProject: Project;
+  private projectId: string;
 
   constructor(private projectListService: ProjectListService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.loadTask(params['taskId']));
-
-  }
-
-  private loadTask(taskId: string) {
-    this.selectedTask = this.projectListService.loadTask(taskId);
+    this.projectId = this.route.snapshot.params['projectId'];
   }
 
   back(): void {
-    const url = `projects/(${this.selectedTask.project.id}//toolbar:${this.selectedTask.project.id})(navbar:tasknavbar)`;
+    const url = `projects/(${this.projectId}//toolbar:${this.projectId})(navbar:tasknavbar)`;
     this.router.navigateByUrl(url);
   }
 

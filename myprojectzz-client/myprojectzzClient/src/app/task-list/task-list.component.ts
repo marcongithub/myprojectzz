@@ -19,13 +19,7 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.loadProject(params['projectId']));
-  }
-
-  private loadProject(param: number) {
-    console.log('loading project: ' + param);
-    const project: Project = this.projectListService.loadProject(param);
-    this.tasksOfProject = project.tasks;
+    this.loadProject();
   }
 
   selectTask(projectTask: ProjectTask): void {
@@ -34,12 +28,17 @@ export class TaskListComponent implements OnInit {
     } else {
       this.selectedTask = projectTask;
     }
-    this.projectListService.taskSelectionEvent.emit(this.selectedTask );
+    this.projectListService.taskSelectionEvent.emit(this.selectedTask);
   }
 
   isSelected(projectTask: ProjectTask): boolean {
     const isSame: boolean = (projectTask !== undefined && this.selectedTask !== undefined) && projectTask.title === this.selectedTask.title;
     return isSame;
+  }
+
+  private loadProject() {
+    const project: Project = this.projectListService.loadProject(this.route.snapshot.params['projectId']);
+    this.tasksOfProject = project.tasks;
   }
 
 }

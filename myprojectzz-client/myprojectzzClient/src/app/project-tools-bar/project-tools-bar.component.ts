@@ -16,7 +16,9 @@ export class ProjectToolsBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectListService.projectSelectionEvent.subscribe(project => this.selectedProject = project);
+    this.projectListService.projectSelectionEvent.subscribe(project => {
+      this.selectedProject = project;
+    });
   }
 
   isOpenProjectEnabled(): boolean {
