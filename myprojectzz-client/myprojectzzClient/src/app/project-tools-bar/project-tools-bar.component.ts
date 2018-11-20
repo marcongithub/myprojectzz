@@ -39,7 +39,8 @@ export class ProjectToolsBarComponent implements OnInit {
 
   editProject(): void {
     // working
-    this.router.navigate([{outlets: {primary: `edit/${this.selectedProject.id}`, toolbar: `edit/${this.selectedProject.id}`}}],
+    const projectId: string = this.selectedProject ? this.selectedProject.id : '-1';
+    this.router.navigate([{outlets: {primary: `edit/${projectId}`, toolbar: `edit/${projectId}`}}],
       {relativeTo: this.route});
 
   }

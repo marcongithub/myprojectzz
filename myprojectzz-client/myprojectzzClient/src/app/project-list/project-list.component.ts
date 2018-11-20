@@ -30,8 +30,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   isSelected(project: Project): boolean {
-    const isSame: boolean = (project !== undefined && this.selectedProject !== undefined) && project.title === this.selectedProject.title;
-    return isSame;
+    return (project !== undefined && this.selectedProject !== undefined) && project.title === this.selectedProject.title;
   }
 
 

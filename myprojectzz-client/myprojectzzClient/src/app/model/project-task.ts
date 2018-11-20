@@ -1,5 +1,7 @@
 import {WeekDay} from '@angular/common';
 import {Project} from './project';
+import {Status} from './project-status.enum';
+import {TaskPriority} from './task-priority.enum';
 
 export interface IProjectTask {
   description?: string;
@@ -8,14 +10,43 @@ export interface IProjectTask {
   title?: String;
   weekday?: WeekDay;
   calendarWeek?: number;
+  status?: Status;
+  priority?: TaskPriority;
 }
 
 export class ProjectTask implements IProjectTask {
 
-  constructor(private _title: String, private _weekday: WeekDay,
-              private _calendarWeek: number, private _project: Project, private _id: string, private _description?: string) {
+  constructor(private _title?: String, private _weekday?: WeekDay,
+              private _calendarWeek?: number, private _project?: Project,
+              private _id?: string, private _description?: string,
+              private _status?: Status, private _priority?: TaskPriority) {
+    this._title = _title ? _title : '';
+    this._weekday = _weekday ? _weekday : WeekDay.Monday;
+    this._calendarWeek = _calendarWeek ? _calendarWeek : 0;
+    this._project = _project;
+    this._id = _id ? _id : '-1';
+    this._description = _description ? _description : '';
+    this._status = _status ? _status : Status.OPEN;
+    this._priority = _priority ? _priority : TaskPriority.DEFAULT;
   }
 
+  get status(): Status {
+    return this._status;
+  }
+
+  set status(value: Status) {
+    if (value !== null && value !== undefined) {
+      this._status = value;
+    }
+  }
+
+  get priority(): TaskPriority {
+    return this._priority;
+  }
+
+  set priority(value: TaskPriority) {
+    this._priority = value;
+  }
 
   get description(): string {
     return this._description;
@@ -66,17 +97,14 @@ export class ProjectTask implements IProjectTask {
   }
 
   static fromObject(taskRaw: IProjectTask): ProjectTask {
-    return new ProjectTask(taskRaw.title ? taskRaw.title : '',
-      taskRaw.weekday ? taskRaw.weekday : WeekDay.Monday,
-      taskRaw.calendarWeek ? taskRaw.calendarWeek : 0,
-      taskRaw.project, taskRaw.id ? taskRaw.id : '-1',
-      taskRaw.description ? taskRaw.description : '');
+    return new ProjectTask(taskRaw.title,
+      taskRaw.weekday,
+      taskRaw.calendarWeek,
+      taskRaw.project,
+      taskRaw.id,
+      taskRaw.description,
+      taskRaw.status,
+      taskRaw.priority);
   }
 
-  static create(project: Project): ProjectTask {
-    const projectTaskTemplate: IProjectTask = {
-      project: project
-    };
-    return ProjectTask.fromObject(projectTaskTemplate);
-  }
 }

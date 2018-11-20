@@ -1,0 +1,12 @@
+div.btn-group{
+  margin-bottom: 1em;
+}
+
+.form-control.ng-invalid{
+  border: 2px solid red;
+  background-color: lightpink;
+}
+.form-control.ng-valid.ng-touched{
+  border: 2px solid green;
+}
+

@@ -18,6 +18,7 @@ import { HomeNavbarComponent } from './home-navbar/home-navbar.component';
 import { TaskNavbarComponent } from './task-navbar/task-navbar.component';
 import { TaskFormComponent } from './form/task-form/task-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { ProjectFormComponent } from './form/project-form/project-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     ProjectNavbarComponent,
     HomeNavbarComponent,
     TaskNavbarComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    ProjectFormComponent
   ],
   imports: [
     BrowserModule,

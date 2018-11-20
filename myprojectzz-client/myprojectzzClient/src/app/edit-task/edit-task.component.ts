@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProjectListService} from '../service/core/project-list.service';
 import {ProjectTask} from '../model/project-task';
 import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
@@ -31,7 +31,7 @@ export class EditTaskComponent implements OnInit {
     } else {
       // create new
       const selectedProject: Project = this.projectListService.loadProject(this.selectedProjectId);
-      this.selectedTask = ProjectTask.create(selectedProject);
+      this.selectedTask = ProjectTask.fromObject({project: selectedProject});
     }
   }
 }

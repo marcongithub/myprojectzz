@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Project} from '../../model/project';
 import {WeekDay} from '@angular/common';
-import {ProjectStatus} from '../../model/project-status.enum';
+import {Status} from '../../model/project-status.enum';
 import {ProjectTask} from '../../model/project-task';
 
 @Injectable({
@@ -24,17 +24,16 @@ export class ProjectListService {
 
     const projects: Project[] = [];
 
-    const renovierungsProject: Project = new Project('Renovierung', ProjectStatus.OPEN, '1');
-    const todoListProject: Project = new Project('Todo Liste', ProjectStatus.OPEN, '2');
-    const umzugsProject: Project = new Project('Umzug', ProjectStatus.DONE, '3');
+    const renovierungsProject: Project = new Project('Renovierung', '1');
+    const todoListProject: Project = new Project('Todo Liste', '2');
+    const umzugsProject: Project = new Project('Umzug', '3');
 
     const entenTask = new ProjectTask('Mama wg. Ente anrufen', WeekDay.Friday, 44, todoListProject, '1');
     const dirrTask = new ProjectTask('Dirr anrufen', WeekDay.Friday, 44, todoListProject, '2');
 
 
-    todoListProject.tasks = [];
-    todoListProject.tasks.push(entenTask);
-    todoListProject.tasks.push(dirrTask);
+    todoListProject.addTask(entenTask);
+    todoListProject.addTask(dirrTask);
 
     // set up repos
     this.taskRepository = new Map<string, ProjectTask>();
@@ -52,6 +51,7 @@ export class ProjectListService {
     return Array.from(this.projectSet);
   }
 
+  // TODO: add caching https://fullstack-developer.academy/caching-http-requests-with-angular/
   loadProject(projectId: string): Project {
     return this.projectRepository.get(projectId.toString());
   }
@@ -63,31 +63,49 @@ export class ProjectListService {
   saveTask(task: ProjectTask): ProjectTask {
     let taskToReturn: ProjectTask;
     if (Number(task.id) < 0) {
-      // create, i.e generate taskid
+      // CREATE, i.e generate taskid
       console.log('saving new task');
-      const id: string = this.generateTaskId();
-      task.id = id;
+      task.id = this.generateId();
       this.taskRepository.set(task.id, task);
       taskToReturn = task;
       // add task to project
       task.project.tasks.push(task);
     } else {
-      // update
+      // UPDATE
       console.log('updating existing task');
       const taskToUpdate: ProjectTask = this.taskRepository.get(task.id);
       taskToUpdate.description = task.description;
       taskToUpdate.title = task.title;
+      taskToUpdate.priority = task.priority;
       taskToReturn = taskToUpdate;
     }
 
     return task;
   }
 
-  private generateTaskId(): string {
+  saveProject(project: Project): Project {
+    let projectToReturn: Project;
+    if (Number(project.id) < 0) {
+      // CREATE new project
+      console.log('saving new project');
+      project.id = this.generateId();
+      this.projectRepository.set(project.id, project);
+      this.projectSet.add(project);
+    } else {
+      // UPDATE
+      console.log('updating existing project');
+      projectToReturn = this.projectRepository.get(project.id);
+      projectToReturn.title = project.title;
+      projectToReturn.description = project.description;
+    }
+    return projectToReturn;
+  }
+
+  private generateId(): string {
     let max = 0;
 
-    function findMax(task: ProjectTask) {
-      const id: number = Number(task.id);
+    function findMax(entity: { id }) {
+      const id: number = Number(entity.id);
       if (id > max) {
         max = id;
       }

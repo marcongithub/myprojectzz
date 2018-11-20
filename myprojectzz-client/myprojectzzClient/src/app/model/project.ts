@@ -1,13 +1,34 @@
-import {ProjectStatus} from './project-status.enum';
+import {ProjectStatus, Status} from './project-status.enum';
 import {ProjectModul} from './project-modul';
 import {ProjectTask} from './project-task';
 
 
-export class Project {
+export interface IProject {
+  title?: string;
+  id?: string;
+  description?: string;
+}
 
-  constructor(private _title: string, private _status: ProjectStatus, private _id?: string) {
+export class Project implements IProject {
+
+  private readonly _tasks: ProjectTask[];
+  private readonly _modules: ProjectModul[];
+
+  constructor(private _title?: string, private _id?: string, private _description?: string) {
+    this._tasks = [];
+    this._modules = [];
+    this._title = _title ? _title : '';
+    this._id = _id ? _id : '-1';
+    this._description = _description ? _description : '';
   }
 
+  get modules(): ProjectModul[] {
+    return this._modules;
+  }
+
+  get tasks(): ProjectTask[] {
+    return this._tasks;
+  }
 
   get id(): string {
     return this._id;
@@ -17,25 +38,13 @@ export class Project {
     this._id = value;
   }
 
-  get modules(): ProjectModul[] {
-    return this._modules;
+  get description(): string {
+    return this._description;
   }
 
-  set modules(value: ProjectModul[]) {
-    this._modules = value;
+  set description(value: string) {
+    this._description = value;
   }
-
-  get tasks(): ProjectTask[] {
-    return this._tasks;
-  }
-
-  set tasks(value: ProjectTask[]) {
-    this._tasks = value;
-  }
-
-  private _modules: ProjectModul[];
-
-  private _tasks: ProjectTask[];
 
   get title(): string {
     return this._title;
@@ -45,11 +54,42 @@ export class Project {
     this._title = value;
   }
 
-  get status(): ProjectStatus {
-    return this._status;
+  static fromObject(projectRaw: IProject): Project {
+    return new Project(projectRaw.title, projectRaw.id, projectRaw.description);
   }
 
-  set status(value: ProjectStatus) {
-    this._status = value;
+  addTask(task: ProjectTask): void {
+    this._tasks.push(task);
   }
+
+  addAllTasks(tasks: ProjectTask[]): void {
+    this._tasks.push(...tasks);
+  }
+
+  addModule(module: ProjectModul): void {
+    this._modules.push(module);
+  }
+
+  addAllModules(modules: ProjectModul[]): void {
+    this._modules.push(...modules);
+  }
+
+  getStatus(): ProjectStatus {
+    return this._tasks.length === 0 ? ProjectStatus.OPEN : this.calculateStatus();
+  }
+
+  private calculateStatus(): ProjectStatus {
+    const doneTasks: ProjectTask[] = this.tasks.filter(task => task.status === Status.DONE);
+    if (doneTasks.length === 0) {
+      return ProjectStatus.OPEN;
+    } else if (doneTasks.length === this.tasks.length) {
+      return ProjectStatus.DONE;
+    } else if (doneTasks.length > (this.tasks.length / 2)) {
+      return ProjectStatus.MAINLY_DONE;
+    } else {
+      return ProjectStatus.MAINLY_OPEN;
+    }
+  }
+
+
 }

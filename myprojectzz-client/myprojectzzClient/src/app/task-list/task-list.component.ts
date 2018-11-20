@@ -32,8 +32,7 @@ export class TaskListComponent implements OnInit {
   }
 
   isSelected(projectTask: ProjectTask): boolean {
-    const isSame: boolean = (projectTask !== undefined && this.selectedTask !== undefined) && projectTask.title === this.selectedTask.title;
-    return isSame;
+    return(projectTask !== undefined && this.selectedTask !== undefined) && projectTask.title === this.selectedTask.title;
   }
 
   private loadProject() {

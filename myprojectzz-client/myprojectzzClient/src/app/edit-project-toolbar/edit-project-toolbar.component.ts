@@ -10,19 +10,19 @@ import {Project} from '../model/project';
 })
 export class EditProjectToolbarComponent implements OnInit {
 
-  private selectedProject: Project;
+  // private selectedProject: Project;
 
   constructor(private projectListService: ProjectListService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.loadProject(params['projectId']));
-    console.log(`Editing ${this.selectedProject.title} ...`);
+    // this.route.params.subscribe(params => this.loadProject(params['projectId']));
+    // console.log(`Editing ${this.selectedProject.title} ...`);
   }
 
   private loadProject(param: string) {
-    console.log('loading project: ' + param);
-    this.selectedProject = this.projectListService.loadProject(param);
+    // console.log('loading project: ' + param);
+    // this.selectedProject = this.projectListService.loadProject(param);
   }
 
 }
