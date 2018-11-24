@@ -32,6 +32,7 @@ describe('A ProjectTask', () => {
     expect(task.description).toMatch('');
     expect(task.status).toBe(Status.OPEN);
     expect(task.priority).toBe(TaskPriority.DEFAULT);
+    expect(task.date).toBeUndefined();
   });
 
 });

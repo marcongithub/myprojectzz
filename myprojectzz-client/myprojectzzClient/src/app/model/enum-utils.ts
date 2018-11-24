@@ -6,6 +6,6 @@ export function enumNames<E>(anyEnum: any): string[] {
 }
 
 export function enumKeys<E>(anyEnum: any): number[] {
-  return Object.keys(TaskPriority).map(t => Number(t)).filter(t => !isNaN(t)) as number[];
+  return Object.keys(anyEnum).map(t => Number(t)).filter(t => !isNaN(t)) as number[];
 }
 

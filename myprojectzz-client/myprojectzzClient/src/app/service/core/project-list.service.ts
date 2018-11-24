@@ -1,7 +1,6 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Project} from '../../model/project';
 import {WeekDay} from '@angular/common';
-import {Status} from '../../model/project-status.enum';
 import {ProjectTask} from '../../model/project-task';
 
 @Injectable({
@@ -77,6 +76,9 @@ export class ProjectListService {
       taskToUpdate.description = task.description;
       taskToUpdate.title = task.title;
       taskToUpdate.priority = task.priority;
+      taskToUpdate.date = task.date;
+      taskToUpdate.calendarWeek = task.calendarWeek;
+      taskToUpdate.weekday = task.weekday;
       taskToReturn = taskToUpdate;
     }
 

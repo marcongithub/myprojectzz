@@ -12,14 +12,15 @@ export interface IProjectTask {
   calendarWeek?: number;
   status?: Status;
   priority?: TaskPriority;
+  date?: Date;
 }
 
 export class ProjectTask implements IProjectTask {
-
   constructor(private _title?: String, private _weekday?: WeekDay,
               private _calendarWeek?: number, private _project?: Project,
               private _id?: string, private _description?: string,
-              private _status?: Status, private _priority?: TaskPriority) {
+              private _status?: Status, private _priority?: TaskPriority,
+              private _date?: Date) {
     this._title = _title ? _title : '';
     this._weekday = _weekday ? _weekday : WeekDay.Monday;
     this._calendarWeek = _calendarWeek ? _calendarWeek : 0;
@@ -28,6 +29,14 @@ export class ProjectTask implements IProjectTask {
     this._description = _description ? _description : '';
     this._status = _status ? _status : Status.OPEN;
     this._priority = _priority ? _priority : TaskPriority.DEFAULT;
+  }
+
+  get date(): Date {
+    return this._date;
+  }
+
+  set date(value: Date) {
+    this._date = value;
   }
 
   get status(): Status {
@@ -104,7 +113,8 @@ export class ProjectTask implements IProjectTask {
       taskRaw.id,
       taskRaw.description,
       taskRaw.status,
-      taskRaw.priority);
+      taskRaw.priority,
+      taskRaw.date);
   }
 
 }
